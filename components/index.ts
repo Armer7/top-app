@@ -1,2 +1,3 @@
 export * from './Htag/Htag';
-export * from './button/Button';
+export * from './Button/Button';
+export * from './P/P';
