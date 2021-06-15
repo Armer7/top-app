@@ -7,7 +7,7 @@ export default function Home(): JSX.Element {
       <Button appearance={'primary'} arrow={'right'}>
         button
       </Button>
-      <Button appearance={'ghost'} arrow={'right'}>
+      <Button appearance={'ghost'} arrow={'down'}>
         button
       </Button>
       <P size={'lg'}>large</P>
