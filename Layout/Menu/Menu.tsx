@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import styles from './Menu.module.css';
-import { AppContext } from '../context/app.context';
-import { firstLevelMenu } from '../helpers/helpers';
-import { FirstLevelMenuItem, PageItem } from '../interfaces/menu.interface';
+import { AppContext } from '../../context/app.context';
+import { firstLevelMenu } from '../../helpers/helpers';
+import { FirstLevelMenuItem, PageItem } from '../../interfaces/menu.interface';
 
 export const Menu = (): JSX.Element => {
   const { menu, setMenu, firstCategory } = useContext(AppContext);
