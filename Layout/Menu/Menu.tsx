@@ -40,7 +40,7 @@ export const Menu = (): JSX.Element => {
                 </div>
               </a>
             </Link>
-            {m.id === firstCategory && buildSecondLevel(m)}
+            {m.id === firstCategory && menu.length > 0 && buildSecondLevel(m)}
           </div>
         ))}
       </>

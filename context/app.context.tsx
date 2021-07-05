@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useState } from 'react';
+import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { MenuItem } from '../interfaces/menu.interface';
 import { TopLevelCategory } from '../interfaces/page.interface';
 
@@ -22,6 +22,10 @@ export const AppContextProvider = ({
   const setMenu = (newMenu: MenuItem[]) => {
     setMenuState(newMenu);
   };
+  useEffect(() => {
+    setMenu(menu);
+  }, [menu]);
+
   return (
     <AppContext.Provider value={{ menu: menuState, firstCategory, setMenu }}>
       {children}
