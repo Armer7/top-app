@@ -27,8 +27,9 @@ a {
   --white: white;
   --primary: #7653FC;
   --primary-hover: #6344DF;
+  --red-light: #FEA291;
   --red: #FC836D;
   --green: #1DC37E;
   --green-light: #C8F8E4;
-  --font-family: 'Noto Sans KR', sans-serif;
+  --font-family: 'Noto Sans', sans-serif;
 }

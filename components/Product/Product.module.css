@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: [start] 70px [logoend] 30px [titlestart] calc(50% - 100px) [middle] 1fr [pricestart] auto [priceend] 40px [creditstart] auto [creditend] 40px [ratestart] auto  [end];
 
-  margin-bottom: 30px;
+  margin-top: 30px;
   padding: 30px;
 }
 
@@ -64,6 +64,10 @@
   font-size: 14px;
   font-weight: 300;
   line-height: 19px;
+}
+
+.rateTitle a {
+  color: var(--primary);
 }
 
 .rating {
@@ -158,6 +162,18 @@
 
 .characteristicValue {
   margin-left: 10px;
+}
+
+.closed {
+  overflow: hidden;
+
+  max-height: 0;
+  padding: 0;
+}
+
+.opened {
+  max-height: none;
+  padding: 30px;
 }
 
 @media screen and (max-width: 1320px) {
@@ -314,5 +330,16 @@
 
   .rateTitle {
     margin-bottom: 10px;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 20px;
+    place-items: start center;
+  }
+
+  .reviewButton {
+    margin-left: 0;
   }
 }
