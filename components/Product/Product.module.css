@@ -164,15 +164,9 @@
   margin-left: 10px;
 }
 
-.closed {
+.reviews {
   overflow: hidden;
 
-  max-height: 0;
-  padding: 0;
-}
-
-.opened {
-  max-height: none;
   padding: 30px;
 }
 
