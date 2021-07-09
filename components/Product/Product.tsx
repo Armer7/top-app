@@ -123,7 +123,6 @@ export const Product = motion(
             </div>
           </Card>
           <motion.div
-            layout
             variants={variants}
             initial={'hidden'}
             animate={isReviewOpened ? 'visible' : 'hidden'}

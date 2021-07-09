@@ -31,7 +31,6 @@
 
   font-size: 12px;
   font-weight: 300;
-  line-height: 16px;
 }
 
 .secondBlock {
@@ -54,11 +53,10 @@
   cursor: pointer;
 
   color: var(--gray-dark);
+  outline-offset: -1px;
 
   font-size: 14px;
-
   font-weight: 500;
-  line-height: 19px;
 }
 
 .thirdLevelActive,
