@@ -7,20 +7,43 @@ import {
   KeyboardEvent,
   forwardRef,
   ForwardedRef,
+  useRef,
 } from 'react';
 import StarIcon from './star.svg';
 
 export const Rating = forwardRef(
   (
-    { isEditable = false, rating, setRating, error, ...props }: RatingProps,
+    {
+      isEditable = false,
+      rating,
+      setRating,
+      error,
+      tabIndex,
+      ...props
+    }: RatingProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
     const [ratingArray, setRatingArray] = useState<JSX.Element[]>(
       new Array(5).fill(<></>)
     );
+    const ratingArrayRef = useRef<(HTMLSpanElement | null)[]>([]);
+
     useEffect(() => {
       constructRating(rating);
-    }, [rating]);
+    }, [rating, tabIndex]);
+
+    const computeFocus = (r: number, i: number): number => {
+      if (!isEditable) {
+        return -1;
+      }
+      if (!r && i === 0) {
+        return tabIndex ?? 0;
+      }
+      if (r === i + 1) {
+        return tabIndex ?? 0;
+      }
+      return -1;
+    };
 
     const constructRating = (currentRating: number) => {
       const updateArray = ratingArray.map((r: JSX.Element, i: number) => {
@@ -33,13 +56,11 @@ export const Rating = forwardRef(
             onMouseEnter={() => changeDisplay(i + 1)}
             onMouseLeave={() => changeDisplay(rating)}
             onClick={() => onClick(i + 1)}
+            tabIndex={computeFocus(rating, i)}
+            onKeyDown={handleKey}
+            ref={(r) => ratingArrayRef.current?.push(r)}
           >
-            <StarIcon
-              tabIndex={isEditable ? 0 : -1}
-              onKeyDown={(e: KeyboardEvent<SVGElement>) =>
-                isEditable && handleSpace(i + 1, e)
-              }
-            />
+            <StarIcon />
           </span>
         );
       });
@@ -59,11 +80,24 @@ export const Rating = forwardRef(
       setRating(i);
     };
 
-    const handleSpace = (i: number, e: KeyboardEvent<SVGElement>) => {
-      if (e.code != 'Space' || !setRating) {
+    const handleKey = (e: KeyboardEvent) => {
+      if (!isEditable || !setRating) {
         return;
       }
-      setRating(i);
+      if (e.code === 'ArrowRight' || e.code === 'ArrowUp') {
+        e.preventDefault();
+        if (!rating) {
+          setRating(1);
+        } else {
+          setRating(rating < 5 ? rating + 1 : 5);
+        }
+        ratingArrayRef.current[rating]?.focus();
+      }
+      if (e.code === 'ArrowLeft' || e.code === 'ArrowDown') {
+        e.preventDefault();
+        setRating(rating > 1 ? rating - 1 : 1);
+        ratingArrayRef.current[rating - 2]?.focus();
+      }
     };
 
     return (

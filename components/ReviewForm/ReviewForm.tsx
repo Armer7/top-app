@@ -10,6 +10,7 @@ import { API } from '../../helpers/api';
 import { useState } from 'react';
 export const ReviewForm = ({
   productId,
+  isOpened,
   className,
   ...props
 }: ReviewFormProps): JSX.Element => {
@@ -22,6 +23,7 @@ export const ReviewForm = ({
   } = useForm<IReviewForm>();
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string>();
+
   const onSubmit = async (formData: IReviewForm) => {
     try {
       const { data } = await axios.post<IReviewSentResponse>(
@@ -48,6 +50,7 @@ export const ReviewForm = ({
           })}
           error={errors.name}
           placeholder={'Имя'}
+          tabIndex={isOpened ? 0 : -1}
         />
         <Input
           {...register('title', {
@@ -56,6 +59,7 @@ export const ReviewForm = ({
           className={styles.title}
           error={errors.title}
           placeholder={'Заголовок отзыва'}
+          tabIndex={isOpened ? 0 : -1}
         />
         <div className={styles.rating}>
           <span>Оценка:</span>
@@ -72,6 +76,7 @@ export const ReviewForm = ({
                 isEditable={true}
                 setRating={field.onChange}
                 error={errors.rating}
+                tabIndex={isOpened ? 0 : -1}
               />
             )}
           />
@@ -83,6 +88,7 @@ export const ReviewForm = ({
           className={styles.description}
           error={errors.description}
           placeholder={'Текст отзыва'}
+          tabIndex={isOpened ? 0 : -1}
         />
         <div className={styles.submit}>
           <Button appearance={'primary'}>Отправить</Button>

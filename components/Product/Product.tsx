@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { Button, Card, Divider, Rating, Review, ReviewForm, Tag } from '../';
 import { declOfNum, priceRu } from '../../helpers/helpers';
 import Image from 'next/image';
-import { ForwardedRef, forwardRef, useRef, useState } from 'react';
+import { ForwardedRef, forwardRef, useRef, useState, MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 
 export const Product = motion(
@@ -16,12 +16,14 @@ export const Product = motion(
       const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
       const reviewRef = useRef<HTMLDivElement>(null);
 
-      const scrollToReview = () => {
+      const scrollToReview = (e: MouseEvent) => {
+        e.preventDefault();
         setIsReviewOpened(true);
         reviewRef.current?.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
         });
+        reviewRef.current?.focus();
       };
 
       const variants = {
@@ -72,7 +74,7 @@ export const Product = motion(
             <div className={styles.priceTitle}>цена</div>
             <div className={styles.creditTitle}>кредит</div>
             <div className={styles.rateTitle}>
-              <a href="#ref" onClick={scrollToReview}>
+              <a href="#ref" onClick={(e: MouseEvent) => scrollToReview(e)}>
                 {product.reviewCount}
                 {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
               </a>
@@ -127,14 +129,22 @@ export const Product = motion(
             initial={'hidden'}
             animate={isReviewOpened ? 'visible' : 'hidden'}
           >
-            <Card color={'blue'} className={styles.reviews} ref={reviewRef}>
+            <Card
+              color={'blue'}
+              className={cn(styles.reviews, {
+                [styles.opened]: isReviewOpened,
+                [styles.closed]: !isReviewOpened,
+              })}
+              ref={reviewRef}
+              tabIndex={isReviewOpened ? 0 : -1}
+            >
               {product.reviews.map((r) => (
                 <div key={r._id}>
                   <Review review={r} />
                   <Divider />
                 </div>
               ))}
-              <ReviewForm productId={product._id} />
+              <ReviewForm productId={product._id} isOpened={isReviewOpened} />
             </Card>
           </motion.div>
         </div>
