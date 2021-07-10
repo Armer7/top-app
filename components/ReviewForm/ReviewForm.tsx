@@ -91,7 +91,9 @@ export const ReviewForm = ({
           tabIndex={isOpened ? 0 : -1}
         />
         <div className={styles.submit}>
-          <Button appearance={'primary'}>Отправить</Button>
+          <Button appearance={'primary'} tabIndex={isOpened ? 0 : -1}>
+            Отправить
+          </Button>
           <span className={styles.info}>
             * Перед публикацией отзыв пройдет предварительную модерацию и
             проверку
