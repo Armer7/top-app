@@ -11,6 +11,12 @@
   gap: 20px;
 }
 
+.firstLevelList {
+  padding: 0;
+
+  list-style: none;
+}
+
 .firstLevelActive,
 .firstLevel:hover {
   color: var(--primary);
@@ -23,11 +29,15 @@
 
 .secondLevel {
   margin-bottom: 10px;
+  padding: 0;
 
-  cursor: pointer;
   text-transform: uppercase;
 
   color: var(--gray-dark);
+
+  border: none;
+
+  background: none;
 
   font-size: 12px;
   font-weight: 300;
@@ -36,13 +46,20 @@
 .secondBlock {
   margin-top: 15px;
   margin-left: 12px;
+  padding: 0;
   padding-left: 32px;
+
+  list-style: none;
 
   border-left: 1px solid #DFDFDF;
 }
 
 .secondLevelBlock {
   overflow: hidden;
+
+  padding: 0;
+
+  list-style: none;
 }
 
 .thirdLevel {

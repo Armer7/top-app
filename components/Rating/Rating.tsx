@@ -17,7 +17,7 @@ export const Rating = forwardRef(
       isEditable = false,
       rating,
       setRating,
-      error,
+      errors,
       tabIndex,
       ...props
     }: RatingProps,
@@ -31,6 +31,13 @@ export const Rating = forwardRef(
     useEffect(() => {
       constructRating(rating);
     }, [rating, tabIndex]);
+
+    useEffect(() => {
+     if (!errors?.name && !errors?.title && !errors?.description && errors?.rating  && ratingArrayRef.current[0]?.tabIndex === 0) {
+       ratingArrayRef.current[0]?.focus();
+     }
+    }, [errors?.rating]);
+
 
     const computeFocus = (r: number, i: number): number => {
       if (!isEditable) {
@@ -59,6 +66,12 @@ export const Rating = forwardRef(
             tabIndex={computeFocus(rating, i)}
             onKeyDown={handleKey}
             ref={(r) => ratingArrayRef.current?.push(r)}
+            role={isEditable ? 'slider' : ''}
+            aria-valuenow={rating}
+            aria-valuemax={5}
+            aria-valuemin={1}
+            aria-label={isEditable ? 'укажите рейтинг' : 'рейтинг' + rating}
+            aria-invalid={!!errors?.rating}
           >
             <StarIcon />
           </span>
@@ -103,7 +116,7 @@ export const Rating = forwardRef(
     return (
       <div
         className={cn(styles.ratingWrapper, {
-          [styles.error]: error,
+          [styles.error]: errors?.rating,
         })}
         {...props}
         ref={ref}
@@ -111,7 +124,11 @@ export const Rating = forwardRef(
         {ratingArray.map((r, i) => (
           <span key={i}>{r}</span>
         ))}
-        {error && <span className={styles.errorMessage}>{error.message}</span>}
+        {errors?.rating && (
+          <span role="alert" className={styles.errorMessage}>
+            {errors.rating.message}
+          </span>
+        )}
       </div>
     );
   }

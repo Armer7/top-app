@@ -50,18 +50,27 @@ export const Product = motion(
             </div>
             <div className={styles.title}>{product.title}</div>
             <div className={styles.price}>
+              <span className="visuallyHidden">цена</span>
               {priceRu(product.price)}
+
               {product.oldPrice && (
                 <Tag className={styles.oldPrice} color={'green'}>
+                  <span className="visuallyHidden">скидка</span>
                   {priceRu(product.price - product.oldPrice)}
                 </Tag>
               )}
             </div>
             <div className={styles.credit}>
+              <span className="visuallyHidden">кредит</span>
               {priceRu(product.credit)}
+
               <span className={styles.month}>/мес</span>
             </div>
             <div className={styles.rating}>
+              <span className="visuallyHidden">
+                {'рейтинг' + (product.reviewAvg ?? product.initialRating)}
+              </span>
+              {}
               <Rating rating={product.reviewAvg ?? product.initialRating} />
             </div>
             <div className={styles.tags}>
@@ -71,8 +80,12 @@ export const Product = motion(
                 </Tag>
               ))}
             </div>
-            <div className={styles.priceTitle}>цена</div>
-            <div className={styles.creditTitle}>кредит</div>
+            <div className={styles.priceTitle} aria-hidden={true}>
+              цена
+            </div>
+            <div className={styles.creditTitle} aria-hidden={true}>
+              кредит
+            </div>
             <div className={styles.rateTitle}>
               <a href="#ref" onClick={(e: MouseEvent) => scrollToReview(e)}>
                 {product.reviewCount}
@@ -119,6 +132,7 @@ export const Product = motion(
                 appearance={'ghost'}
                 arrow={isReviewOpened ? 'down' : 'right'}
                 onClick={() => setIsReviewOpened(!isReviewOpened)}
+                aria-expanded={isReviewOpened}
               >
                 Читать отзывы
               </Button>

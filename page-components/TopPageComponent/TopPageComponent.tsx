@@ -5,6 +5,8 @@ import { TopLevelCategory } from '../../interfaces/page.interface';
 import { SortEnum } from '../../components/Sort/Sort.props';
 import { useEffect, useReducer } from 'react';
 import { sortReducer } from './sort.reducer';
+import { declOfNum } from '../../helpers/helpers';
+import { useReducedMotion } from 'framer-motion';
 
 export const TopPageComponent = ({
   page,
@@ -18,6 +20,7 @@ export const TopPageComponent = ({
       sort: SortEnum.Rating,
     }
   );
+  const shouldReduceMotion = useReducedMotion();
 
   const setSort = (sort: SortEnum) => {
     dispathSort({ type: sort });
@@ -32,15 +35,29 @@ export const TopPageComponent = ({
       <div className={styles.title}>
         <Htag tag={'h1'}>{page.title}</Htag>
         {products && (
-          <Tag color={'grey'} size={'md'}>
+          <Tag
+            color={'grey'}
+            size={'md'}
+            aria-label={
+              products.length +
+              declOfNum(products.length, ['элемент', 'элемента', 'элементов'])
+            }
+          >
             {products.length}
           </Tag>
         )}
         <Sort sort={sort} setSort={setSort} />
       </div>
-      <div>
+      <div role="list">
         {sortedProducts &&
-          sortedProducts.map((p) => <Product layout key={p._id} product={p} />)}
+          sortedProducts.map((p) => (
+            <Product
+              role="listItem"
+              layout={shouldReduceMotion ? false : true}
+              key={p._id}
+              product={p}
+            />
+          ))}
       </div>
       <div className={styles.hhTitle}>
         <Htag tag={'h2'}>Вакансии - {page.category}</Htag>
