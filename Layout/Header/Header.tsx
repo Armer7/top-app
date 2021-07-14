@@ -37,6 +37,9 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
       <ButtonIcon
         icon={'menu'}
         appearance={'white'}
+        aria-label="открыть меню"
+        aria-expanded={isOpened}
+        tabIndex={isOpened ? -1 : 0}
         onClick={() => setIsOpened(true)}
       />
       <motion.div
@@ -50,6 +53,9 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
           className={styles.menuClose}
           icon={'close'}
           appearance={'white'}
+          aria-label="закрыть меню"
+          aria-expanded={isOpened}
+          tabIndex={isOpened ? 0 : -1}
           onClick={() => setIsOpened(false)}
         />
       </motion.div>

@@ -32,7 +32,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
       <a
         onFocus={() => setIsSkipLinkDisplayed(true)}
         onKeyDown={(key: KeyboardEvent) => skipContentAction(key)}
-        tabIndex={1}
+        tabIndex={0}
         className={cn(styles.skipLink, {
           [styles.displayed]: isSkipLinkDisplayed,
         })}
