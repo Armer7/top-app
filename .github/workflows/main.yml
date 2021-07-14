@@ -4,7 +4,7 @@ name: Publish Docker
 # events but only for the master branch
 on:
   push:
-    branches: [ main ]
+    branches: [ $default-branch ]
 
 jobs:
   build:
@@ -14,7 +14,6 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          registry: docker.pkg.github.com
           name: docker.pkg.github.com/Armer7/top-app/top-app
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASWORD }}
